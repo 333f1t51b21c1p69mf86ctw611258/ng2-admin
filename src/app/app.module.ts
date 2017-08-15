@@ -22,12 +22,6 @@ import { customHttpProvider } from './_helpers/index';
 import { AuthGuard } from './_guards/index';
 import { AuthenticationService, UserService } from './_services/index';
 
-// Application wide providers
-const APP_PROVIDERS = [
-  AppState,
-  GlobalState
-];
-
 export type StoreType = {
   state: InternalStateType,
   restoreInputValues: () => void,
@@ -54,7 +48,12 @@ export type StoreType = {
     routing
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
-    APP_PROVIDERS
+    AppState,
+    GlobalState,
+    customHttpProvider,
+    AuthGuard,
+    AuthenticationService,
+    UserService
   ]
 })
 

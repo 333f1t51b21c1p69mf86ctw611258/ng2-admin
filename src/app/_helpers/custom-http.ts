@@ -55,12 +55,12 @@ export class CustomHttp extends Http {
     }
 }
 
-export function customHttpFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions): Http {
+export function customHttpFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions): CustomHttp {
     return new CustomHttp(xhrBackend, requestOptions);
 }
 
 export let customHttpProvider = {
-    provide: Http,
+    provide: CustomHttp,
     useFactory: customHttpFactory,
     deps: [XHRBackend, RequestOptions]
 };
