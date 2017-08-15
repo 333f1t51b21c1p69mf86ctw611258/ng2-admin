@@ -1,11 +1,14 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
+
+//
+import { CustomHttp } from "app/_helpers";
 
 @Injectable()
 export class AuthenticationService {
-    constructor(private http: Http) { }
+    constructor(private http: CustomHttp) { }
 
     login(username: string, password: string) {
         return this.http.post('/users/authenticate', { username: username, password: password })

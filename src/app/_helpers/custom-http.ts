@@ -17,11 +17,11 @@ export class CustomHttp extends Http {
         return super.get(appConfig.apiUrl + url, this.addJwt(options)).catch(this.handleError);
     }
 
-    post(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
+    post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
         return super.post(appConfig.apiUrl + url, body, this.addJwt(options)).catch(this.handleError);
     }
 
-    put(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
+    put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
         return super.put(appConfig.apiUrl + url, body, this.addJwt(options)).catch(this.handleError);
     }
 

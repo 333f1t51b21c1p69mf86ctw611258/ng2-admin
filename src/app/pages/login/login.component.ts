@@ -1,5 +1,9 @@
-import {Component} from '@angular/core';
-import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+
+//
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from '../../_services/index';
 
 @Component({
   selector: 'login',
@@ -8,12 +12,16 @@ import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/form
 })
 export class Login {
 
-  public form:FormGroup;
-  public email:AbstractControl;
-  public password:AbstractControl;
-  public submitted:boolean = false;
+  public form: FormGroup;
+  public email: AbstractControl;
+  public password: AbstractControl;
+  public submitted: boolean = false;
 
-  constructor(fb:FormBuilder) {
+  constructor(fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authenticationService: AuthenticationService) {
+
     this.form = fb.group({
       'email': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
@@ -23,11 +31,29 @@ export class Login {
     this.password = this.form.controls['password'];
   }
 
-  public onSubmit(values:Object):void {
+  loading = false;
+  returnUrl: string;
+
+  public onSubmit(values: any): void {
     this.submitted = true;
     if (this.form.valid) {
       // your code goes here
       // console.log(values);
+
+      this.loading = true;
+      this.authenticationService.login(values.email, values.password)
+        .subscribe(
+        data => {
+          if (this.returnUrl !== undefined) {
+            this.router.navigate([this.returnUrl]);
+          } else {
+            this.router.navigate(['pages']);
+          }
+        },
+        error => {
+          // this.alertService.error(error);
+          this.loading = false;
+        });
     }
   }
 }
