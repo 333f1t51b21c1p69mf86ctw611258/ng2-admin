@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 
 //
@@ -10,7 +10,7 @@ import { AuthenticationService } from '../../_services/index';
   templateUrl: './login.html',
   styleUrls: ['./login.scss']
 })
-export class Login {
+export class Login implements OnInit {
 
   public form: FormGroup;
   public email: AbstractControl;
@@ -34,6 +34,14 @@ export class Login {
   loading = false;
   returnUrl: string;
 
+  ngOnInit() {
+    // reset login status
+    this.authenticationService.logout();
+
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
+
   public onSubmit(values: any): void {
     this.submitted = true;
     if (this.form.valid) {
@@ -44,6 +52,7 @@ export class Login {
       this.authenticationService.login(values.email, values.password)
         .subscribe(
         data => {
+          console.log(this.returnUrl);
           if (this.returnUrl !== undefined) {
             this.router.navigate([this.returnUrl]);
           } else {

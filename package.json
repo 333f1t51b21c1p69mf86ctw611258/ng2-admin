@@ -16,7 +16,7 @@
     "ng": "ng",
     "rimraf": "rimraf",
     "changelog": "standard-changelog",
-    "start": "ng serve",
+    "start": "ng serve --host 10.72.125.168",
     "start:hmr": "ng serve --hmr",
     "start:aot": "ng serve --aot",
     "start:prod": "ng serve --prod",
