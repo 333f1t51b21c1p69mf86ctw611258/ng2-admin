@@ -55,7 +55,7 @@ export class Login implements OnInit {
       this.authenticationService.login(values.email, values.password)
         .subscribe(
         data => {
-          console.log(this.returnUrl);
+          // console.log(this.returnUrl);
           if (this.returnUrl !== undefined) {
             this.router.navigate([this.returnUrl]);
           } else {
