@@ -1,11 +1,15 @@
-import { NgModule }      from '@angular/core';
-import { CommonModule }  from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { AppTranslationModule } from '../../app.translation.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgaModule } from '../../theme/nga.module';
 
 import { Login } from './login.component';
-import { routing }       from './login.routing';
+import { routing } from './login.routing';
+
+//
+import { AlertComponent } from "app/_directives";
+import { AlertService } from "app/_services";
 
 
 @NgModule({
@@ -18,7 +22,11 @@ import { routing }       from './login.routing';
     routing
   ],
   declarations: [
-    Login
+    Login,
+    AlertComponent
+  ],
+  providers: [
+    AlertService
   ]
 })
-export class LoginModule {}
+export class LoginModule { }

@@ -3,7 +3,9 @@ import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/fo
 
 //
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from '../../_services/index';
+import { AuthenticationService } from 'app/_services/index';
+//
+import { AlertService } from "app/_services/index";
 
 @Component({
   selector: 'login',
@@ -20,7 +22,8 @@ export class Login implements OnInit {
   constructor(fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService) {
+    private authenticationService: AuthenticationService,
+    private alertService: AlertService) {
 
     this.form = fb.group({
       'email': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -60,7 +63,7 @@ export class Login implements OnInit {
           }
         },
         error => {
-          // this.alertService.error(error);
+          this.alertService.error(error);
           this.loading = false;
         });
     }
