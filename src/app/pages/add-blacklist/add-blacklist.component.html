@@ -1,3 +1,26 @@
-<p>
-  add-blacklist works!
-</p>
+<div>
+  <ba-card cardTitle="Device's Blacklist Information" baCardClass="with-scroll">
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+      <div class="form-group row" [ngClass]="{'has-error': (!deviceId.valid && deviceId.touched), 'has-success': (deviceId.valid && deviceId.touched)}">
+        <label for="inputDeviceId" class="col-sm-2 control-label">Device ID</label>
+
+        <div class="col-sm-10">
+          <input [formControl]="deviceId" type="text" class="form-control" id="inputDeviceId" placeholder="Device ID">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="inputFileUpload" class="col-sm-2 form-control-label">Black IPs</label>
+        <div class="col-sm-10">
+          <ba-file-uploader id="inputFileUpload" [fileUploaderOptions]="fileUploaderOptions" (onFileUploadCompleted)="onFileUploadCompleted($event)"></ba-file-uploader>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="offset-sm-2 col-sm-10">
+          <button type="submit" class="btn btn-warning">Submit</button>
+          <button id="btnUpdateResult" type="button" class="btn" (click)="btnUpdateResult_onClick()">Update Result</button>
+        </div>
+      </div>
+    </form>
+  </ba-card>
+</div>
