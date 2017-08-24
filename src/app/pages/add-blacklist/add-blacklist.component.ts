@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 //
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { EmailValidator, EqualPasswordsValidator } from '../../theme/validators';
-import { NgUploaderOptions } from "ngx-uploader";
+import { NgUploaderOptions } from 'ngx-uploader';
 
 //
-import { QueueBlacklistService } from "app/_services/queueBlacklist.service";
+import { QueueBlacklistService } from 'app/_services/queueBlacklist.service';
 
 //
 import { appConfig } from '../../app.config';
@@ -14,7 +14,7 @@ import { appConfig } from '../../app.config';
 @Component({
   selector: 'app-add-blacklist',
   templateUrl: './add-blacklist.component.html',
-  styleUrls: ['./add-blacklist.component.scss']
+  styleUrls: ['./add-blacklist.component.scss'],
 })
 export class AddBlacklistComponent implements OnInit {
 
@@ -31,7 +31,7 @@ export class AddBlacklistComponent implements OnInit {
     private queueBlacklistService: QueueBlacklistService) {
 
     this.form = fb.group({
-      'deviceId': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
+      'deviceId': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
     });
 
     this.deviceId = this.form.controls['deviceId'];
@@ -50,6 +50,9 @@ export class AddBlacklistComponent implements OnInit {
       this.queueBlacklistService.add(values.deviceId, this.json_filename, this.json_md5)
         .subscribe(data => {
           this.json_id = data.id;
+
+          console.log('Submit result: ');
+          console.log(data);
 
           this.submitted = false;
         },
@@ -77,6 +80,7 @@ export class AddBlacklistComponent implements OnInit {
   btnUpdateResult_onClick() {
     this.queueBlacklistService.getAddResult(this.json_id)
       .subscribe(data => {
+        console.log('All statuses:');
         console.log(data);
       }, error => {
         // this.alertService.error(error);
