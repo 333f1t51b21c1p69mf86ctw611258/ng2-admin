@@ -32,7 +32,7 @@ export class AddBlacklistComponent implements OnInit {
     private queueBlacklistService: QueueBlacklistService) {
 
     this.form = fb.group({
-      'deviceId': ['00d0cb-GPON-DSNW651c10c8', Validators.compose([Validators.required, Validators.minLength(4)])],
+      'deviceId': ['18d071-H646FW-DSNW6a290900', Validators.compose([Validators.required, Validators.minLength(4)])],
       'id': ['', Validators.compose([])]
     });
 
