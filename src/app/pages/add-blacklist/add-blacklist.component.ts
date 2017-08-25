@@ -24,6 +24,7 @@ export class AddBlacklistComponent implements OnInit {
 
   form: FormGroup;
   deviceId: AbstractControl;
+  id: AbstractControl;
 
   submitted: boolean = false;
 
@@ -31,11 +32,14 @@ export class AddBlacklistComponent implements OnInit {
     private queueBlacklistService: QueueBlacklistService) {
 
     this.form = fb.group({
-      'deviceId': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      'deviceId': ['00d0cb-GPON-DSNW651c10c8', Validators.compose([Validators.required, Validators.minLength(4)])],
+      'id': ['', Validators.compose([])]
     });
 
     this.deviceId = this.form.controls['deviceId'];
-    this.deviceId.setValue('00d0cb-GPON-DSNW651c10c8');
+    this.id = this.form.controls['id'];
+
+    // this.deviceId.setValue('00d0cb-GPON-DSNW651c10c8');
   }
 
   ngOnInit() {
@@ -50,6 +54,7 @@ export class AddBlacklistComponent implements OnInit {
       this.queueBlacklistService.add(values.deviceId, this.json_filename, this.json_md5)
         .subscribe(data => {
           this.json_id = data.id;
+          this.id.setValue(data.id);
 
           console.log('Submit result: ');
           console.log(data);
@@ -78,7 +83,7 @@ export class AddBlacklistComponent implements OnInit {
   }
 
   btnUpdateResult_onClick() {
-    this.queueBlacklistService.getAddResult(this.json_id)
+    this.queueBlacklistService.getAddResult(this.id.value)
       .subscribe(data => {
         console.log('All statuses:');
         console.log(data);

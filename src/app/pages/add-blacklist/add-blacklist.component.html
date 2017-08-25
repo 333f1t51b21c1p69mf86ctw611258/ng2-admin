@@ -15,6 +15,14 @@
           <ba-file-uploader id="inputFileUpload" [fileUploaderOptions]="fileUploaderOptions" (onFileUploadCompleted)="onFileUploadCompleted($event)"></ba-file-uploader>
         </div>
       </div>
+
+      <div class="form-group row">
+        <label for="inputId" class="col-sm-2 form-control-label">ID</label>
+        <div class="col-sm-10">
+          <input [formControl]="id" type="text" class="form-control" id="inputId" placeholder="ID">
+        </div>
+      </div>
+
       <div class="form-group row">
         <div class="offset-sm-2 col-sm-10">
           <button type="submit" class="btn btn-warning">Submit</button>
