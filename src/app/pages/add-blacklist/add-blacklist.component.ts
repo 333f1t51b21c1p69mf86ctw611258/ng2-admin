@@ -24,7 +24,13 @@ export class AddBlacklistComponent implements OnInit {
 
   form: FormGroup;
   deviceId: AbstractControl;
+  redirectContent: AbstractControl;
   id: AbstractControl;
+
+  fileUploaderOptions: NgUploaderOptions = {
+    // url: 'http://website.com/upload'
+    url: appConfig.apiUrl + '/queueBlacklists/uploadBlacklistFile',
+  };
 
   submitted: boolean = false;
 
@@ -32,8 +38,9 @@ export class AddBlacklistComponent implements OnInit {
     private queueBlacklistService: QueueBlacklistService) {
 
     this.form = fb.group({
-      'deviceId': ['18d071-H646FW-DSNW6a290900', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'id': ['', Validators.compose([])]
+      'deviceId': ['18d071-H646FW-DSNW6a290900', Validators.compose([Validators.required, Validators.minLength(1)])],
+      'redirectContent': ['', Validators.compose([])],
+      'id': ['', Validators.compose([])],
     });
 
     this.deviceId = this.form.controls['deviceId'];
@@ -60,8 +67,7 @@ export class AddBlacklistComponent implements OnInit {
           console.log(data);
 
           this.submitted = false;
-        },
-        error => {
+        }, error => {
           // this.alertService.error(error);
           console.log(error);
 
@@ -70,13 +76,8 @@ export class AddBlacklistComponent implements OnInit {
     }
   }
 
-  fileUploaderOptions: NgUploaderOptions = {
-    // url: 'http://website.com/upload'
-    url: appConfig.apiUrl + '/queueBlacklists/uploadBlacklistFile',
-  };
-
   onFileUploadCompleted(data) {
-    const responseData = JSON.parse(data.response)[0];
+    const responseData = JSON.parse(data.response);
 
     this.json_filename = responseData.filename;
     this.json_md5 = responseData.md5;

@@ -1,0 +1,94 @@
+<div>
+  <ba-card cardTitle="Profile List" baCardClass="table-panel">
+    <div style="max-height: 200px; overflow-y: auto;">
+      <table class="table table-hover">
+        <thead>
+          <tr class="black-muted-bg">
+            <th class="table-id">#</th>
+            <th>Profile Name</th>
+            <th>Description</th>
+            <th class="text-center">
+              <input type="checkbox" name="all" [(ngModel)]="selectedAll" (change)="checkAll($event)" />
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of profileList; let i = index">
+            <td class="table-id">{{i + 1}}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.description }}</td>
+            <td class="text-center">
+              <input type="checkbox" value="{{item.id}}" [(ngModel)]="item.state" (change)="checkIfAllSelected();" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ba-card>
+  <ba-card cardTitle="Blacklist Profile Information" baCardClass="table-panel">
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+      <div class="form-group row" [ngClass]="{'has-error': (!profileName.valid && profileName.touched), 'has-success': (profileName.valid && profileName.touched)}">
+        <label for="inputProfileName" class="col-sm-2 control-label">Profile Name</label>
+
+        <div class="col-sm-10">
+          <input [formControl]="profileName" type="text" class="form-control" id="inputProfileName" placeholder="Profile Name">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="inputDescription" class="col-sm-2 form-control-label">Description</label>
+        <div class="col-sm-10">
+          <textarea [formControl]="description" class="form-control" id="inputDescription" placeholder="Description"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="inputFileUpload" class="col-sm-2 form-control-label">Black IPs</label>
+        <div class="col-sm-10">
+          <ba-file-uploader id="inputFileUpload" [fileUploaderOptions]="fileUploaderOptions" (onFileUploadCompleted)="onFileUploadCompleted($event)"></ba-file-uploader>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="inputInputtedBlackIp" class="col-sm-2 control-label">Inputted Black IP</label>
+
+        <div class="col-sm-10 input-group">
+          <input [formControl]="inputtedBlackIp" type="text" class="form-control with-danger-addon" id="inputInputtedBlackIp" placeholder="Inputted Black IP (Press Enter to submit)">
+          <span class="input-group-btn">
+            <button class="btn btn-danger" style="width: 86px;" type="button">Go!</button>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 form-control-label">Blacklist</label>
+        <div class="col-sm-10">
+          <div style="max-height: 200px; overflow-y: auto;">
+            <table class="table table-hover">
+              <thead>
+                <tr class="black-muted-bg">
+                  <th class="table-id">#</th>
+                  <th>Black IP</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of blackIpList; let i = index">
+                  <td class="table-id">{{i + 1}}</td>
+                  <td>{{ item.blackIp }}</td>
+                  <td>{{ item.description }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="offset-sm-2 col-sm-10">
+          <button type="submit" class="btn btn-success btn-with-icon"><i class="ion-android-checkmark-circle"></i>Submit</button>
+        </div>
+      </div>
+    </form>
+  </ba-card>
+</div>

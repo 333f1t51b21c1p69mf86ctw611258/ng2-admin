@@ -3,6 +3,19 @@ export const PAGES_MENU = [
     path: 'pages',
     children: [
       {
+        path: 'manage-profile',  // path for our page
+        data: { // custom menu declaration
+          menu: {
+            title: 'Manage Profile', // menu title
+            icon: 'ion-grid', // menu icon
+            pathMatch: 'prefix', // use it if item children not displayed in menu
+            selected: false,
+            expanded: false,
+            order: 0
+          }
+        }
+      },
+      {
         path: 'add-blacklist',  // path for our page
         data: { // custom menu declaration
           menu: {

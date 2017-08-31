@@ -1,5 +1,5 @@
 <div>
-  <ba-card cardTitle="Device's Blacklist Information" baCardClass="with-scroll">
+  <ba-card cardTitle="Device's Blacklist Information" baCardClass="table-panel">
     <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
       <div class="form-group row" [ngClass]="{'has-error': (!deviceId.valid && deviceId.touched), 'has-success': (deviceId.valid && deviceId.touched)}">
         <label for="inputDeviceId" class="col-sm-2 control-label">Device ID</label>
