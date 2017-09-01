@@ -90,6 +90,8 @@ export class ManageProfileComponent implements OnInit {
           console.log('Submit result: ');
           console.log(data);
 
+          this.loadProfileList();
+
           this.submitted = false;
         }, error => {
           // this.alertService.error(error);
@@ -144,6 +146,34 @@ export class ManageProfileComponent implements OnInit {
 
         this.submitted = false;
       });
+  }
+
+  btnInput_onClick() {
+    let item = {
+      id: this.blackIpList.length + 1,
+      blackIp: this.inputtedBlackIp.value,
+      description: ''
+    };
+
+    this.blackIpList.push(item);
+
+    this.inputtedBlackIp.setValue('');
+  }
+
+  inputInputtedBlackIp_onEnter() {
+    let item = {
+      id: this.blackIpList.length + 1,
+      blackIp: this.inputtedBlackIp.value,
+      description: ''
+    };
+
+    this.blackIpList.push(item);
+
+    this.inputtedBlackIp.setValue('');
+  }
+
+  btnItemDelete_onClick($event: any) {
+    this._profileService.delete($event);
   }
 
 }

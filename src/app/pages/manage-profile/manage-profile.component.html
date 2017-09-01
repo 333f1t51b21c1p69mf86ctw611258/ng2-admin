@@ -8,7 +8,7 @@
             <th>Profile Name</th>
             <th>Description</th>
             <th class="text-center">
-              <input type="checkbox" name="all" [(ngModel)]="selectedAll" (change)="checkAll($event)" />
+
             </th>
           </tr>
         </thead>
@@ -17,8 +17,10 @@
             <td class="table-id">{{i + 1}}</td>
             <td>{{ item.name }}</td>
             <td>{{ item.description }}</td>
-            <td class="text-center">
-              <input type="checkbox" value="{{item.id}}" [(ngModel)]="item.state" (change)="checkIfAllSelected();" />
+            <td class="text-right">
+              <button type="button" class="btn btn-info btn-icon btn-xs" style="width: 25px;"><i class="ion-information"></i></button>
+              <button type="button" class="btn btn-warning btn-icon btn-xs" style="width: 25px;"><i class="ion-android-warning"></i></button>
+              <button type="button" class="btn btn-danger btn-icon btn-xs" style="width: 25px;" (click)="btnItemDelete_onClick(item._id)"><i class="ion-nuclear"></i></button>
             </td>
           </tr>
         </tbody>
@@ -53,9 +55,9 @@
         <label for="inputInputtedBlackIp" class="col-sm-2 control-label">Inputted Black IP</label>
 
         <div class="col-sm-10 input-group">
-          <input [formControl]="inputtedBlackIp" type="text" class="form-control with-danger-addon" id="inputInputtedBlackIp" placeholder="Inputted Black IP (Press Enter to submit)">
+          <input [formControl]="inputtedBlackIp" type="text" class="form-control with-danger-addon" id="inputInputtedBlackIp" placeholder="Inputted Black IP (Press Enter to submit)" (keyup.enter)="inputInputtedBlackIp_onEnter()">
           <span class="input-group-btn">
-            <button class="btn btn-danger" style="width: 86px;" type="button">Go!</button>
+            <button id="btnInput" class="btn btn-danger" style="width: 86px;" type="button" (click)="btnInput_onClick()">Input</button>
           </span>
         </div>
       </div>

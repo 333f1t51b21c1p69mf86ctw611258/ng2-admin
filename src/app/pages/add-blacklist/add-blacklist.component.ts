@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-
-//
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { EmailValidator, EqualPasswordsValidator } from '../../theme/validators';
 import { NgUploaderOptions } from 'ngx-uploader';
-
-//
 import { QueueBlacklistService } from 'app/_services/queueBlacklist.service';
-
-//
+import { ProfileService } from 'app/_services/profile.service';
 import { appConfig } from '../../app.config';
 
 @Component({
@@ -21,6 +16,8 @@ export class AddBlacklistComponent implements OnInit {
   json_filename: string;
   json_md5: string;
   json_id: number;
+
+  profileList: any[];
 
   form: FormGroup;
   deviceId: AbstractControl;
@@ -35,18 +32,22 @@ export class AddBlacklistComponent implements OnInit {
   submitted: boolean = false;
 
   constructor(fb: FormBuilder,
-    private queueBlacklistService: QueueBlacklistService) {
+    private queueBlacklistService: QueueBlacklistService,
+    private _profileService: ProfileService) {
 
     this.form = fb.group({
-      'deviceId': ['18d071-H646FW-DSNW6a290900', Validators.compose([Validators.required, Validators.minLength(1)])],
+      'deviceId': ['18d071-H646FW-DSNW6a221190', Validators.compose([Validators.required, Validators.minLength(1)])],
       'redirectContent': ['', Validators.compose([])],
       'id': ['', Validators.compose([])],
     });
 
     this.deviceId = this.form.controls['deviceId'];
     this.id = this.form.controls['id'];
+    this.redirectContent = this.form.controls['redirectContent'];
 
     // this.deviceId.setValue('00d0cb-GPON-DSNW651c10c8');
+
+    this.loadProfileList();
   }
 
   ngOnInit() {
@@ -58,7 +59,23 @@ export class AddBlacklistComponent implements OnInit {
     if (this.form.valid) {
       // your code goes here
 
-      this.queueBlacklistService.add(values.deviceId, this.json_filename, this.json_md5)
+      let selectedProfileIds: string = '';
+      this.profileList.forEach(element => {
+        if (element.state) {
+          if (selectedProfileIds) {
+            selectedProfileIds += ',';
+          }
+          selectedProfileIds += element._id;
+        }
+      });
+
+      const formData = {
+        deviceId: values.deviceId,
+        redirectContent: values.redirectContent,
+        selectedProfileIds: selectedProfileIds,
+      };
+
+      this.queueBlacklistService.add(formData)
         .subscribe(data => {
           this.json_id = data.id;
           this.id.setValue(data.id);
@@ -91,6 +108,38 @@ export class AddBlacklistComponent implements OnInit {
       }, error => {
         // this.alertService.error(error);
         console.log(error);
+      });
+  }
+
+  checkAll(ev) {
+    this.profileList.forEach(x => {
+      x.state = ev.target.checked;
+    });
+  }
+
+  isAllChecked() {
+    console.log('fired');
+    return this.profileList.every(_ => _.state);
+  }
+
+  selectedAll: any;
+  checkIfAllSelected() {
+    this.selectedAll = this.profileList.every(function (item: any) {
+      return item.state;
+    });
+  }
+
+  loadProfileList() {
+    this.profileList = [];
+
+    this._profileService.getAll()
+      .subscribe(data => {
+        this.profileList = data;
+      }, error => {
+        // this.alertService.error(error);
+        console.log(error);
+
+        this.submitted = false;
       });
   }
 

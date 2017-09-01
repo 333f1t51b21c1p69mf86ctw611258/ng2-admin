@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 //
-import { CustomHttp } from "app/_helpers";
+import { CustomHttp } from 'app/_helpers';
 
 @Injectable()
 export class ProfileService {
@@ -22,5 +22,10 @@ export class ProfileService {
             .map((response: Response) => {
                 return response.json();
             });
+    }
+
+    delete(formData: any) {
+        const url = '/profile/detail/' + formData;
+        return this.http.delete(url);
     }
 }

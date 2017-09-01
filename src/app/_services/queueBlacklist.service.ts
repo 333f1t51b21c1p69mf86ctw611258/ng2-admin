@@ -10,8 +10,8 @@ import { CustomHttp } from "app/_helpers";
 export class QueueBlacklistService {
     constructor(private http: CustomHttp) { }
 
-    add(deviceId: string, filename: string, md5: string) {
-        return this.http.post('/queueBlacklists/add', { deviceId: deviceId, filename: filename, md5: md5 })
+    add(formData: any) {
+        return this.http.post('/queueBlacklists/add', formData)
             .map((response: Response) => {
                 return response.json();
             });

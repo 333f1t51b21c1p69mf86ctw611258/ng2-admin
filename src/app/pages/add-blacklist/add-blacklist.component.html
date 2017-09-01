@@ -10,9 +10,45 @@
       </div>
 
       <div class="form-group row">
-        <label for="inputFileUpload" class="col-sm-2 form-control-label">Black IPs</label>
+        <label for="inputRedirectContent" class="col-sm-2 form-control-label">Redirect Content</label>
         <div class="col-sm-10">
-          <ba-file-uploader id="inputFileUpload" [fileUploaderOptions]="fileUploaderOptions" (onFileUploadCompleted)="onFileUploadCompleted($event)"></ba-file-uploader>
+          <textarea [formControl]="redirectContent" class="form-control" id="inputRedirectContent" placeholder="Redirect Content"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 form-control-label">Profile</label>
+        <div class="col-sm-10">
+          <div style="max-height: 200px; overflow-y: auto;">
+            <table class="table table-hover">
+              <thead>
+                <tr class="black-muted-bg">
+                  <th class="table-id">#</th>
+                  <th>Profile Name</th>
+                  <th>Description</th>
+                  <th class="text-center">
+                    <label class="custom-checkbox" style="line-height: 5px;">
+                        <input type="checkbox" name="all" [(ngModel)]="selectedAll" (change)="checkAll($event)" [ngModelOptions]="{standalone: true}">
+                      <span></span>
+                    </label>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of profileList; let i = index">
+                  <td class="table-id">{{i + 1}}</td>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.description }}</td>
+                  <td class="text-center">
+                    <label class="custom-checkbox" style="line-height: 5px;">
+                        <input type="checkbox" value="{{item.id}}" [(ngModel)]="item.state" (change)="checkIfAllSelected();" [ngModelOptions]="{standalone: true}">
+                      <span></span>
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -25,8 +61,8 @@
 
       <div class="form-group row">
         <div class="offset-sm-2 col-sm-10">
-          <button type="submit" class="btn btn-warning">Submit</button>
-          <button id="btnUpdateResult" type="button" class="btn" (click)="btnUpdateResult_onClick()">Update Result</button>
+          <button type="submit" class="btn btn-success btn-with-icon"><i class="ion-android-checkmark-circle"></i>Submit</button>
+          <button id="btnUpdateResult" type="button" class="btn btn-default btn-with-icon" (click)="btnUpdateResult_onClick()"><i class="ion-android-download"></i>Update Result</button>
         </div>
       </div>
     </form>
