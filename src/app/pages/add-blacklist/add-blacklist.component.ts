@@ -18,6 +18,7 @@ export class AddBlacklistComponent implements OnInit {
   json_id: number;
 
   profileList: any[];
+  resultList: any[];
 
   form: FormGroup;
   deviceId: AbstractControl;
@@ -55,6 +56,8 @@ export class AddBlacklistComponent implements OnInit {
 
   onSubmit(values: any): void {
     this.submitted = true;
+
+    this.resultList = [];
 
     if (this.form.valid) {
       // your code goes here
@@ -105,6 +108,8 @@ export class AddBlacklistComponent implements OnInit {
       .subscribe(data => {
         console.log('All statuses:');
         console.log(data);
+
+        this.resultList = data;
       }, error => {
         // this.alertService.error(error);
         console.log(error);

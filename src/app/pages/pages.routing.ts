@@ -22,7 +22,7 @@ export const routes: Routes = [
     component: Pages,
     canActivate: [AuthGuard],
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'add-blacklist', pathMatch: 'full' },
       { path: 'manage-profile', loadChildren: './manage-profile/manage-profile.module#ManageProfileModule' },
       { path: 'add-blacklist', loadChildren: './add-blacklist/add-blacklist.module#AddBlacklistModule' },
       { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },

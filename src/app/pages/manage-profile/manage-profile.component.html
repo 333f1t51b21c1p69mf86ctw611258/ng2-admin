@@ -18,9 +18,9 @@
             <td>{{ item.name }}</td>
             <td>{{ item.description }}</td>
             <td class="text-right">
-              <button type="button" class="btn btn-info btn-icon btn-xs" style="width: 25px;"><i class="ion-information"></i></button>
-              <button type="button" class="btn btn-warning btn-icon btn-xs" style="width: 25px;"><i class="ion-android-warning"></i></button>
-              <button type="button" class="btn btn-danger btn-icon btn-xs" style="width: 25px;" (click)="btnItemDelete_onClick(item._id)"><i class="ion-nuclear"></i></button>
+              <button type="button" class="btn btn-default btn-icon btn-xs" style="width: 25px;"><i class="ion-information"></i></button>
+              <button type="button" class="btn btn-default btn-icon btn-xs" style="width: 25px;"><i class="ion-edit"></i></button>
+              <button type="button" class="btn btn-default btn-icon btn-xs" style="width: 25px;" (click)="btnItemDelete_onClick(item._id)"><i class="ion-trash-a"></i></button>
             </td>
           </tr>
         </tbody>
@@ -28,7 +28,7 @@
     </div>
   </ba-card>
   <ba-card cardTitle="Blacklist Profile Information" baCardClass="table-panel">
-    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal" (keydown.enter)="$event.target.tagName == 'TEXTAREA'">
       <div class="form-group row" [ngClass]="{'has-error': (!profileName.valid && profileName.touched), 'has-success': (profileName.valid && profileName.touched)}">
         <label for="inputProfileName" class="col-sm-2 control-label">Profile Name</label>
 
