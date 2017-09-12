@@ -173,7 +173,22 @@ export class ManageProfileComponent implements OnInit {
   }
 
   btnItemDelete_onClick($event: any) {
+    console.log($event);
     this._profileService.delete($event);
+  }
+
+  btnItemEdit_onClick($event: any) {
+    console.log($event);
+
+    this._profileService.getById($event)
+      .subscribe(data => {
+        this.profileName.setValue(data.name);
+        this.description.setValue(data.description);
+        this.blackIpList = data.blackIps;
+      }, error => {
+        // this.alertService.error(error);
+        console.log(error);
+      });
   }
 
 }

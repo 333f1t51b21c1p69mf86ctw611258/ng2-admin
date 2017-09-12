@@ -17,6 +17,13 @@ export class ProfileService {
             });
     }
 
+    getById(id: string) {
+        return this.http.get('/profile/detail/' + id)
+            .map((response: Response) => {
+                return response.json();
+            });
+    }
+
     getAll() {
         return this.http.get('/profile')
             .map((response: Response) => {
@@ -24,8 +31,11 @@ export class ProfileService {
             });
     }
 
-    delete(formData: any) {
-        const url = '/profile/detail/' + formData;
-        return this.http.delete(url);
+    delete(id: string) {
+        const url = '/profile/detail/' + id;
+        return this.http.delete(url)
+            .map((response: Response) => {
+                return response.json();
+            });
     }
 }
