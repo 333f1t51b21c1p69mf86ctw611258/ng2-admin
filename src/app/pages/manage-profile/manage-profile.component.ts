@@ -174,7 +174,18 @@ export class ManageProfileComponent implements OnInit {
 
   btnItemDelete_onClick($event: any) {
     console.log($event);
-    this._profileService.delete($event);
+
+    if (confirm('Are you sure you want to delete this?')) {
+      this._profileService.delete($event)
+        .subscribe(data => {
+          console.log(data);
+
+          this.loadProfileList();
+        }, error => {
+          // this.alertService.error(error);
+          console.log(error);
+        });
+    }
   }
 
   btnItemEdit_onClick($event: any) {
