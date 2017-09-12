@@ -57,6 +57,8 @@ export class AddBlacklistComponent implements OnInit {
   }
 
   onSubmit(values: any): void {
+    this.alertService.clear();
+
     this.submitted = true;
 
     this.resultList = [];
