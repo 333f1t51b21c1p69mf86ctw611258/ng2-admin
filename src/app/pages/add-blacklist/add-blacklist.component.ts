@@ -5,6 +5,7 @@ import { NgUploaderOptions } from 'ngx-uploader';
 import { QueueBlacklistService } from 'app/_services/queueBlacklist.service';
 import { ProfileService } from 'app/_services/profile.service';
 import { appConfig } from '../../app.config';
+import { AlertService } from 'app/_services';
 
 @Component({
   selector: 'app-add-blacklist',
@@ -33,6 +34,7 @@ export class AddBlacklistComponent implements OnInit {
   submitted: boolean = false;
 
   constructor(fb: FormBuilder,
+    private alertService: AlertService,
     private queueBlacklistService: QueueBlacklistService,
     private _profileService: ProfileService) {
 
@@ -89,7 +91,8 @@ export class AddBlacklistComponent implements OnInit {
           this.submitted = false;
         }, error => {
           // this.alertService.error(error);
-          console.log(error);
+          // console.log(error);
+          this.alertService.error(error);
 
           this.submitted = false;
         });

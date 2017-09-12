@@ -57,6 +57,9 @@ import {
   EqualPasswordsValidator
 } from './validators';
 
+import { AlertComponent } from 'app/_directives';
+import { AlertService } from 'app/_services';
+
 const NGA_COMPONENTS = [
   BaAmChart,
   BaBackTop,
@@ -72,7 +75,8 @@ const NGA_COMPONENTS = [
   BaPageTop,
   BaPictureUploader,
   BaSidebar,
-  BaFileUploader
+  BaFileUploader,
+  AlertComponent
 ];
 
 const NGA_DIRECTIVES = [
@@ -118,6 +122,9 @@ const NGA_VALIDATORS = [
     ...NGA_PIPES,
     ...NGA_DIRECTIVES,
     ...NGA_COMPONENTS
+  ],
+  providers: [
+    AlertService
   ]
 })
 export class NgaModule {

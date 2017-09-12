@@ -7,11 +7,6 @@ import { NgaModule } from '../../theme/nga.module';
 import { Login } from './login.component';
 import { routing } from './login.routing';
 
-//
-import { AlertComponent } from "app/_directives";
-import { AlertService } from "app/_services";
-
-
 @NgModule({
   imports: [
     CommonModule,
@@ -21,12 +16,6 @@ import { AlertService } from "app/_services";
     NgaModule,
     routing
   ],
-  declarations: [
-    Login,
-    AlertComponent
-  ],
-  providers: [
-    AlertService
-  ]
+  declarations: [Login]
 })
 export class LoginModule { }
