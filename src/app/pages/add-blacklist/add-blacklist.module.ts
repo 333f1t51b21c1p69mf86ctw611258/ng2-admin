@@ -6,6 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgaModule } from '../../theme/nga.module';
 import { QueueBlacklistService } from "app/_services";
 import { ProfileService } from "app/_services/profile.service";
+import { AlertComponent } from "app/_directives";
+import { AlertService } from "app/_services";
 
 @NgModule({
   imports: [
@@ -16,11 +18,13 @@ import { ProfileService } from "app/_services/profile.service";
     AddBlacklistRoutingModule
   ],
   declarations: [
-    AddBlacklistComponent
+    AddBlacklistComponent,
+    AlertComponent
   ],
   providers: [
     QueueBlacklistService,
     ProfileService,
+    AlertService
   ]
 })
 export class AddBlacklistModule { }
