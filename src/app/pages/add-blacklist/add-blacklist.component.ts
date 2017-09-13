@@ -109,16 +109,20 @@ export class AddBlacklistComponent implements OnInit {
   }
 
   btnUpdateResult_onClick() {
-    this.queueBlacklistService.getAddResult(this.id.value)
-      .subscribe(data => {
-        console.log('All statuses:');
-        console.log(data);
+    if (this.id.value) {
+      this.queueBlacklistService.getAddResult(this.id.value)
+        .subscribe(data => {
+          console.log('All statuses:');
+          console.log(data);
 
-        this.resultList = data;
-      }, error => {
-        // this.alertService.error(error);
-        console.log(error);
-      });
+          this.resultList = data;
+        }, error => {
+          // this.alertService.error(error);
+          console.log(error);
+        });
+    } else {
+      this.alertService.error('Missing Field: ID');
+    }
   }
 
   checkAll(ev) {
